@@ -1,24 +1,29 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-   
-        if(s[0]=='\0' ){
-            return 0;
+       vector<int> v(127,0);
+        int i=0;
+        int j=0;
+        int len=0;
+        while(i<s.length() && j<s.length()){       
+         if(v[s[j]]>0){
+            v.clear();
+            // fill(v.begin(), v.end(), 0);
+           vector<int> temp(127,0);
+           v=temp;
+             len=max(len,j-i);
+             cout<<(j-i)<<" ";
+               i++;
+                j=i;
+         }
+         else{
+             v[s[j]]++;
+            //    len=max(len,j-i);
+             j++;
+         }
         }
+        len=max(len,j-i);
+        return len;
 
-
-     vector<int>v(128,0);
-     int count=0;
-     for (int i=0;i<s.length();i++){
-        if(v[s[i]]!=0){
-            break;
-        }
-         v[s[i]]++;
-         count++;
-     }
-     int temp=lengthOfLongestSubstring(s.substr(1));
-     return max(temp,count);
-   
-     
     }
 };
