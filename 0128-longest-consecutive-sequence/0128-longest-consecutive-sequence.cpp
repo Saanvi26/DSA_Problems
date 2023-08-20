@@ -4,27 +4,23 @@ public:
         if(nums.size()==0){
             return 0;
         }
-        map<int,int>m;
-        int count=1;
+        unordered_set<int>s;
         for (int i=0;i<nums.size();i++){
-            m[nums[i]]++;
+            s.insert(nums[i]);
         }
-        vector<int>v;
-        for (auto i : m ){
-            v.push_back(i.first);
+        int largest=1;
+        for (auto i : s){
+           if( s.find(i-1)==s.end()){
+               int ctn=1;
+               int x=i;
+                while(s.find(x+1)!=s.end()){
+                    ctn++;
+                    x++;
+                }
+                largest=max(largest,ctn);
+           }
+          
         }
-        vector<int>temp;
-        for (int i=1;i<v.size();i++){
-            if(v[i]==v[i-1]+1){
-                count++;
-            }
-            else {
-                temp.push_back(count);
-                count=1;
-            }
-        }
-         temp.push_back(count);
-         sort(temp.begin(),temp.end());
-         return temp[temp.size()-1];
+        return largest;
     }
 };
